@@ -1,136 +1,668 @@
-
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Semin Heo (허세민) · Continual & Multimodal Learning</title>
+<meta name="description" content="Semin Heo (허세민) — M.S. student at MuLI Lab, SeoulTech. Continual learning and adaptation for audio-visual and multimodal systems." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#F2F4F4;
+    --card:#FFFFFF;
+    --ink:#15202B;
+    --ink-2:#33424E;
+    --ink-3:#6B7A85;
+    --line:#DCE2E5;
+    --line-soft:#E7ECEE;
+    --audio:#107C7E;       /* teal — global accent + audio modality */
+    --audio-bright:#16A2A4;
+    --visual:#BF7416;      /* amber — visual modality (contained use) */
+    --fusion:#3C4DB5;      /* indigo — audio-visual fusion (contained use) */
+    --maxw:1080px;
+    --r:14px;
+  }
 
-  <title>Semin Heo</title>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;scroll-padding-top:84px;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink-2);
+    font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    font-size:17px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  a{color:var(--audio);text-decoration:none;}
+  a:hover{color:var(--audio-bright);}
+  h1,h2,h3{color:var(--ink);font-family:"Newsreader",Georgia,serif;font-weight:500;line-height:1.12;letter-spacing:-0.01em;}
+  ::selection{background:rgba(16,124,126,.18);}
 
-  <style>
-    body {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 60px 24px;
-      font-family: Arial, sans-serif;
-      line-height: 1.7;
-      color: #222;
-    }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
 
-    header {
-      margin-bottom: 60px;
-    }
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.72rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--audio);
+    margin:0 0 18px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--audio);display:inline-block;}
 
-    h1 {
-      margin-bottom: 8px;
-      font-size: 42px;
-    }
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(242,244,244,.82);
+    backdrop-filter:saturate(140%) blur(10px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
+  .brand{font-family:"Newsreader",serif;font-size:1.18rem;color:var(--ink);font-weight:600;letter-spacing:-.01em;white-space:nowrap;}
+  .brand span{color:var(--ink-3);font-weight:400;font-size:.95rem;}
+  nav.links{display:flex;gap:26px;}
+  nav.links a{
+    font-family:"IBM Plex Mono",monospace;font-size:.78rem;letter-spacing:.04em;
+    color:var(--ink-2);text-transform:lowercase;position:relative;padding:4px 0;
+  }
+  nav.links a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1.5px;background:var(--audio);transition:width .25s ease;}
+  nav.links a:hover,nav.links a.active{color:var(--ink);}
+  nav.links a:hover::after,nav.links a.active::after{width:100%;}
+  .menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:7px 10px;cursor:pointer;font-family:"IBM Plex Mono",monospace;font-size:.75rem;color:var(--ink);}
 
-    h2 {
-      margin-top: 48px;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 8px;
-    }
+  /* ---------- HERO ---------- */
+  .hero{padding:78px 0 30px;}
+  .hero-grid{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center;}
+  .name-en{font-size:clamp(2.7rem,6.2vw,4.4rem);margin:0;line-height:1.02;}
+  .name-ko{font-size:clamp(1.3rem,3vw,1.9rem);color:var(--ink-3);font-weight:400;margin:8px 0 0;font-family:"Newsreader",serif;}
+  .affil{margin:22px 0 0;font-size:1.02rem;color:var(--ink-2);max-width:42ch;}
+  .affil b{color:var(--ink);font-weight:600;}
+  .statement{margin:26px 0 0;font-family:"Newsreader",serif;font-size:1.32rem;line-height:1.5;color:var(--ink);max-width:34ch;font-weight:400;}
 
-    .subtitle {
-      color: #666;
-      font-size: 18px;
-    }
+  .avatar{
+    width:148px;height:148px;border-radius:50%;flex:none;
+    background:
+      radial-gradient(circle at 32% 30%, rgba(22,162,164,.9), rgba(16,124,126,1) 55%),
+      var(--audio);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-family:"Newsreader",serif;font-size:3rem;font-weight:500;
+    box-shadow:0 1px 0 var(--line), 0 18px 40px -22px rgba(16,124,126,.55);
+    position:relative;overflow:hidden;
+  }
+  .avatar::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 60%,rgba(191,116,22,.35));}
+  .avatar span{position:relative;z-index:1;letter-spacing:.02em;}
 
-    a {
-      color: #0969da;
-      text-decoration: none;
-    }
+  .links-row{margin:30px 0 0;display:flex;flex-wrap:wrap;gap:8px 0;align-items:center;font-family:"IBM Plex Mono",monospace;font-size:.85rem;}
+  .links-row a{padding:0 16px;color:var(--ink);border-left:1px solid var(--line);}
+  .links-row a:first-child{padding-left:0;border-left:none;}
+  .links-row a:hover{color:var(--audio);}
 
-    a:hover {
-      text-decoration: underline;
-    }
+  /* ---------- MODALITY STREAM (signature) ---------- */
+  .stream-block{margin-top:54px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:30px 30px 22px;}
+  .stream-cap{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:6px;}
+  .stream-cap .t{font-family:"IBM Plex Mono",monospace;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
+  .stream-cap .q{font-family:"Newsreader",serif;font-style:italic;color:var(--ink-2);font-size:1.02rem;}
+  svg.stream{width:100%;height:auto;display:block;}
+  .lg-audio text,.lg-vis text,.lg-fus text{font-family:"IBM Plex Mono",monospace;font-size:11px;}
 
-    .project {
-      margin-bottom: 24px;
-    }
+  @keyframes bar{0%,100%{transform:scaleY(.45);}50%{transform:scaleY(1);}}
+  .wbar{transform-origin:center bottom;animation:bar 1.6s ease-in-out infinite;}
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  .axisline{stroke-dasharray:760;stroke-dashoffset:760;animation:draw 1.6s ease-out .2s forwards;}
+  .memline{stroke-dasharray:640;stroke-dashoffset:640;animation:draw 2s ease-out .5s forwards;}
 
-    footer {
-      margin-top: 80px;
-      color: #777;
-      font-size: 14px;
-    }
-  </style>
+  /* ---------- SECTIONS ---------- */
+  section{padding:64px 0;border-top:1px solid var(--line-soft);}
+  .sec-head{margin-bottom:34px;}
+  .sec-head h2{font-size:clamp(1.7rem,3.4vw,2.3rem);margin:0;}
+  .sec-head p{margin:10px 0 0;color:var(--ink-3);max-width:60ch;}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  /* About */
+  .about-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:46px;}
+  .bio p{margin:0 0 16px;}
+  .bio .ko{color:var(--ink-2);font-size:.97rem;border-left:2px solid var(--line);padding-left:18px;margin-top:24px;}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px 26px;margin-bottom:20px;}
+  .panel h3{font-size:1.18rem;margin:0 0 16px;display:flex;align-items:center;gap:9px;}
+  .panel h3 .dot{width:7px;height:7px;border-radius:50%;background:var(--audio);display:inline-block;}
+  .tier{margin:0 0 14px;}
+  .tier:last-child{margin-bottom:0;}
+  .tier .lab{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;}
+  .chip{font-family:"IBM Plex Mono",monospace;font-size:.74rem;padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--ink-2);background:var(--paper);}
+  .chip.key{border-color:var(--audio);color:var(--audio);background:rgba(16,124,126,.05);}
+
+  .edu li{list-style:none;padding:0 0 16px;margin:0 0 16px;border-bottom:1px solid var(--line-soft);}
+  .edu{padding:0;margin:0;}
+  .edu li:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0;}
+  .edu .deg{color:var(--ink);font-weight:600;font-size:1rem;}
+  .edu .where{color:var(--ink-2);font-size:.92rem;}
+  .edu .when{font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--ink-3);margin-top:3px;}
+
+  /* Trajectory */
+  .traj{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin-top:6px;}
+  .traj .step{flex:1;min-width:170px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;position:relative;}
+  .traj .arrow{display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-size:1.4rem;padding:0 6px;}
+  .traj .num{font-family:"IBM Plex Mono",monospace;font-size:.7rem;color:var(--audio);letter-spacing:.1em;}
+  .traj .step h4{margin:8px 0 0;font-family:"Newsreader",serif;font-weight:500;font-size:1.05rem;color:var(--ink);line-height:1.2;}
+
+  /* Research */
+  .rcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:30px 32px;margin-bottom:22px;position:relative;overflow:hidden;}
+  .rcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--audio);}
+  .rcard .meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px;}
+  .tag{font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.05em;padding:3px 9px;border-radius:6px;background:var(--paper);border:1px solid var(--line);color:var(--ink-2);}
+  .tag.live{background:rgba(16,124,126,.08);border-color:var(--audio);color:var(--audio);}
+  .rcard h3{font-size:1.42rem;margin:0 0 4px;}
+  .rcard .sub{font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--ink-3);margin-bottom:16px;}
+  .rcard p{margin:0 0 16px;color:var(--ink-2);}
+  .rcard .label{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:18px 0 9px;}
+  .qlist{margin:0;padding:0;list-style:none;display:grid;gap:8px;}
+  .qlist li{position:relative;padding-left:22px;font-size:.96rem;color:var(--ink-2);}
+  .qlist li::before{content:"→";position:absolute;left:0;color:var(--audio);}
+  .kv{display:flex;flex-wrap:wrap;gap:7px;}
+  .order{font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--ink-2);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:6px 11px;}
+  .order b{color:var(--audio);font-weight:500;}
+
+  /* Publications */
+  .pub{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 30px;display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:start;}
+  .pub .yr{font-family:"IBM Plex Mono",monospace;color:var(--audio);font-size:.95rem;border-right:1px solid var(--line);padding-right:26px;white-space:nowrap;}
+  .pub .yr small{display:block;color:var(--ink-3);font-size:.74rem;margin-top:4px;}
+  .pub .ko-title{color:var(--ink);font-weight:600;font-size:1.06rem;line-height:1.4;}
+  .pub .en-title{font-family:"Newsreader",serif;font-style:italic;color:var(--ink-2);margin-top:4px;font-size:1.02rem;}
+  .pub .venue{font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--ink-3);margin-top:10px;}
+  .pub .acts{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;}
+  .btn{font-family:"IBM Plex Mono",monospace;font-size:.76rem;padding:7px 14px;border:1px solid var(--line);border-radius:8px;color:var(--ink);background:var(--paper);transition:border-color .2s,color .2s;}
+  .btn:hover{border-color:var(--audio);color:var(--audio);}
+  .btn.soon{color:var(--ink-3);cursor:default;}
+  .btn.soon:hover{border-color:var(--line);color:var(--ink-3);}
+
+  /* Projects */
+  .pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+  .pcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px 26px;transition:transform .25s ease,box-shadow .25s ease;}
+  .pcard:hover{transform:translateY(-3px);box-shadow:0 18px 40px -28px rgba(21,32,43,.4);}
+  .pcard .ptype{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);}
+  .pcard h3{font-size:1.14rem;margin:8px 0 10px;}
+  .pcard p{margin:0 0 14px;font-size:.94rem;color:var(--ink-2);}
+  .pcard .chips .chip{font-size:.68rem;}
+
+  /* Teaching */
+  .tgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 46px;}
+  .trow{display:grid;grid-template-columns:auto 1fr;gap:20px;padding:18px 0;border-bottom:1px solid var(--line-soft);align-items:baseline;}
+  .trow .term{font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--audio);white-space:nowrap;}
+  .trow .role{color:var(--ink);font-weight:600;}
+  .trow .org{color:var(--ink-3);font-size:.9rem;margin-top:2px;}
+
+  /* Contact */
+  #contact{border-top:1px solid var(--line-soft);}
+  .contact-grid{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;}
+  .contact-grid h2{font-size:clamp(1.9rem,4vw,2.6rem);margin:0 0 18px;}
+  .clist{font-family:"IBM Plex Mono",monospace;font-size:.92rem;}
+  .clist div{padding:10px 0;border-top:1px solid var(--line-soft);display:flex;gap:18px;}
+  .clist span{color:var(--ink-3);min-width:84px;}
+  .clist a{color:var(--ink);}
+  .clist a:hover{color:var(--audio);}
+
+  footer{padding:34px 0 60px;color:var(--ink-3);font-family:"IBM Plex Mono",monospace;font-size:.74rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:860px){
+    nav.links{position:fixed;inset:64px 0 auto 0;background:var(--paper);flex-direction:column;gap:0;border-bottom:1px solid var(--line);padding:8px 28px 18px;transform:translateY(-130%);transition:transform .3s ease;}
+    nav.links.open{transform:none;}
+    nav.links a{padding:12px 0;border-bottom:1px solid var(--line-soft);font-size:.9rem;}
+    .menu-btn{display:block;}
+    .hero-grid{grid-template-columns:1fr;gap:28px;}
+    .avatar{width:104px;height:104px;font-size:2.1rem;order:-1;}
+    .about-grid{grid-template-columns:1fr;gap:30px;}
+    .pgrid,.tgrid{grid-template-columns:1fr;}
+    .pub{grid-template-columns:1fr;gap:14px;}
+    .pub .yr{border-right:none;border-bottom:1px solid var(--line);padding:0 0 12px;}
+    .contact-grid{grid-template-columns:1fr;align-items:start;}
+    .traj .arrow{transform:rotate(90deg);}
+  }
+  @media (max-width:480px){
+    body{font-size:16px;}
+    .wrap,.nav-inner{padding-left:20px;padding-right:20px;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;}
+    html{scroll-behavior:auto;}
+    .axisline,.memline{stroke-dashoffset:0;}
+    .reveal{opacity:1;transform:none;}
+  }
+</style>
 </head>
-
 <body>
-  <header>
-    <h1>Semin Heo</h1>
 
-    <p class="subtitle">
-      M.S. Student in Applied Artificial Intelligence
-    </p>
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">Semin Heo <span>허세민</span></div>
+    <button class="menu-btn" aria-label="Toggle menu" id="menuBtn">menu</button>
+    <nav class="links" id="navLinks">
+      <a href="#about">about</a>
+      <a href="#research">research</a>
+      <a href="#publications">publications</a>
+      <a href="#projects">projects</a>
+      <a href="#teaching">teaching</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </div>
+</header>
 
-    <p>
-      Seoul National University of Science and Technology<br>
-      BrainAI Lab
-    </p>
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">M.S. Student · MuLI Lab · SeoulTech</p>
+        <h1 class="name-en">Semin Heo</h1>
+        <p class="name-ko">허세민</p>
+        <p class="affil">M.S. in Applied Artificial Intelligence,<br><b>Seoul National University of Science and Technology</b><br>
+          Multimodal Learning and Intelligence (MuLI) Lab · advised by Prof. Seongeun Kim</p>
+      </div>
+      <!-- Replace with: <img class="avatar" src="semin-heo.webp" alt="Portrait of Semin Heo"> -->
+      <div class="avatar" role="img" aria-label="Portrait of Semin Heo"><span>SH</span></div>
+    </div>
 
-    <p>
-      <a href="mailto:heosemin02@gmail.com">Email</a> ·
-      <a href="https://github.com/BluffMin">GitHub</a>
-    </p>
-  </header>
+    <p class="statement">I study continual learning and adaptation for audio-visual and multimodal systems — preserving previously acquired knowledge as available modalities and data environments change over time.</p>
 
-  <main>
-    <section>
-      <h2>About Me</h2>
+    <div class="links-row">
+      <a href="#contact">Email</a>
+      <a href="https://github.com/BluffMin" target="_blank" rel="noopener">GitHub</a>
+      <a href="#publications">Publications</a>
+      <a href="https://www.brainailab.com/" target="_blank" rel="noopener">MuLI Lab</a>
+    </div>
 
-      <p>
-        I am a master's student in the Department of Applied Artificial
-        Intelligence at Seoul National University of Science and Technology.
-        My research interests include continual learning, multimodal learning,
-        and audio-visual understanding.
-      </p>
-    </section>
+    <!-- ===== SIGNATURE: MODALITY STREAM ===== -->
+    <div class="stream-block reveal">
+      <div class="stream-cap">
+        <span class="t">Research setup · continual stream over time</span>
+        <span class="q">What does a model forget as modalities change?</span>
+      </div>
+      <svg class="stream" viewBox="0 0 900 220" role="img" aria-label="Continual learning stream: audio-only, then visual-only, then audio-visual tasks arriving over time while prior knowledge is retained">
+        <!-- time axis -->
+        <line class="axisline" x1="60" y1="178" x2="820" y2="178" stroke="#C7D0D4" stroke-width="1.5"/>
+        <polygon points="820,178 810,174 810,182" fill="#C7D0D4"/>
+        <text x="828" y="182" font-family="IBM Plex Mono, monospace" font-size="11" fill="#6B7A85">time</text>
 
-    <section>
-      <h2>Research Interests</h2>
+        <!-- retained-knowledge (memory) line, thickening as it accumulates -->
+        <path class="memline" d="M150,150 C300,150 320,150 450,150 C580,150 600,150 750,150" fill="none" stroke="#15202B" stroke-width="1" opacity="0.25"/>
 
-      <ul>
-        <li>Continual Learning</li>
-        <li>Multimodal Learning</li>
-        <li>Audio-Visual Question Answering</li>
-        <li>Audio and Acoustic Scene Understanding</li>
+        <!-- STATION 1: Audio-only -->
+        <g class="lg-audio">
+          <rect class="wbar" x="120" y="70" width="6" height="60" rx="3" fill="#107C7E" style="animation-delay:0s"/>
+          <rect class="wbar" x="132" y="70" width="6" height="60" rx="3" fill="#107C7E" style="animation-delay:.2s"/>
+          <rect class="wbar" x="144" y="70" width="6" height="60" rx="3" fill="#16A2A4" style="animation-delay:.4s"/>
+          <rect class="wbar" x="156" y="70" width="6" height="60" rx="3" fill="#107C7E" style="animation-delay:.6s"/>
+          <rect class="wbar" x="168" y="70" width="6" height="60" rx="3" fill="#107C7E" style="animation-delay:.8s"/>
+          <circle cx="147" cy="178" r="4" fill="#107C7E"/>
+          <text x="147" y="205" text-anchor="middle" fill="#107C7E">Audio-only</text>
+        </g>
+
+        <!-- arrow -->
+        <text x="300" y="103" text-anchor="middle" font-family="IBM Plex Mono" font-size="20" fill="#C7D0D4">→</text>
+
+        <!-- STATION 2: Visual-only -->
+        <g class="lg-vis">
+          <rect x="418" y="74" width="20" height="20" rx="3" fill="none" stroke="#BF7416" stroke-width="2"/>
+          <rect x="442" y="74" width="20" height="20" rx="3" fill="#BF7416" opacity="0.85"/>
+          <rect x="418" y="98" width="20" height="20" rx="3" fill="#BF7416" opacity="0.85"/>
+          <rect x="442" y="98" width="20" height="20" rx="3" fill="none" stroke="#BF7416" stroke-width="2"/>
+          <circle cx="450" cy="178" r="4" fill="#BF7416"/>
+          <text x="450" y="205" text-anchor="middle" fill="#BF7416">Visual-only</text>
+        </g>
+
+        <!-- arrow -->
+        <text x="600" y="103" text-anchor="middle" font-family="IBM Plex Mono" font-size="20" fill="#C7D0D4">→</text>
+
+        <!-- STATION 3: Audio-Visual (fusion) -->
+        <g class="lg-fus">
+          <rect class="wbar" x="716" y="78" width="5" height="48" rx="2.5" fill="#107C7E" style="animation-delay:.1s"/>
+          <rect class="wbar" x="725" y="78" width="5" height="48" rx="2.5" fill="#107C7E" style="animation-delay:.5s"/>
+          <rect x="736" y="80" width="18" height="18" rx="3" fill="#BF7416" opacity="0.85"/>
+          <rect x="736" y="100" width="18" height="18" rx="3" fill="none" stroke="#BF7416" stroke-width="2"/>
+          <circle cx="745" cy="100" r="22" fill="none" stroke="#3C4DB5" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.7"/>
+          <circle cx="745" cy="178" r="5" fill="#3C4DB5"/>
+          <text x="745" y="205" text-anchor="middle" fill="#3C4DB5">Audio-Visual</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">About</p>
+      <h2>Preserving knowledge across a changing modality stream</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="bio reveal">
+        <p>I am an M.S. student in Applied Artificial Intelligence at Seoul National University of Science and Technology (SeoulTech) and a member of the Multimodal Learning and Intelligence (MuLI) Lab, advised by Prof. Seongeun Kim.</p>
+        <p>My research focuses on continual learning and adaptation for audio-visual and multimodal systems. In particular, I study how models can preserve previously acquired unimodal knowledge and multimodal reasoning capabilities when available modalities and data domains change over time.</p>
+        <p>My previous work includes domain-agnostic audio continual learning, real-time crime detection through visual enhancement under adverse weather and low-light conditions, and meta-reinforcement learning for HIV treatment strategies that account for patient diversity.</p>
+        <p style="color:var(--ink-3);font-size:.95rem;">Outside research, I enjoy mathematics, puzzles, and reading.</p>
+
+        <p class="ko">저는 서울과학기술대학교 인공지능응용학과 석사과정에 재학 중이며, Multimodal Learning and Intelligence 연구실에서 연구하고 있습니다. 시간에 따라 데이터 환경이나 사용 가능한 모달리티가 달라질 때, 인공지능 모델이 기존 지식을 잊지 않고 새로운 정보를 계속 학습하는 방법에 관심이 있습니다. 현재는 오디오와 비디오를 순차적으로 학습하는 멀티모달 시스템에서 단일 모달리티의 지식과 멀티모달 융합 능력을 함께 보존하는 방법을 연구하고 있습니다.</p>
+
+        <div class="panel" style="margin-top:30px;">
+          <h3><span class="dot"></span>Research trajectory</h3>
+          <div class="traj">
+            <div class="step"><span class="num">01</span><h4>Computer Vision &amp; Adaptive Decision-Making</h4></div>
+            <div class="arrow">→</div>
+            <div class="step"><span class="num">02</span><h4>Domain-Agnostic Audio Continual Learning</h4></div>
+            <div class="arrow">→</div>
+            <div class="step"><span class="num">03</span><h4>Multimodal Continual Learning</h4></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="panel">
+          <h3><span class="dot"></span>Research interests</h3>
+          <div class="tier">
+            <div class="lab">Primary</div>
+            <div class="chips">
+              <span class="chip key">Continual Learning</span>
+              <span class="chip key">Multimodal Learning</span>
+              <span class="chip key">Audio-Visual Intelligence</span>
+            </div>
+          </div>
+          <div class="tier">
+            <div class="lab">Specific topics</div>
+            <div class="chips">
+              <span class="chip">Modality-Incremental Learning</span>
+              <span class="chip">Domain-Incremental Learning</span>
+              <span class="chip">Audio-Visual QA</span>
+              <span class="chip">Multimodal Fusion</span>
+              <span class="chip">Cross-Modal Alignment</span>
+              <span class="chip">Task-Agnostic Inference</span>
+              <span class="chip">Replay-Free CL</span>
+              <span class="chip">Mixture-of-Experts</span>
+            </div>
+          </div>
+          <div class="tier">
+            <div class="lab">Application areas</div>
+            <div class="chips">
+              <span class="chip">Audio Classification</span>
+              <span class="chip">Audio-Visual Reasoning</span>
+              <span class="chip">Acoustic Scene Understanding</span>
+              <span class="chip">Adaptive Multimodal Systems</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3><span class="dot"></span>Education</h3>
+          <ul class="edu">
+            <li>
+              <div class="deg">M.S. in Applied Artificial Intelligence</div>
+              <div class="where">SeoulTech · 서울과학기술대학교</div>
+              <div class="when">Mar 2026 – Present · Expected Feb 2028</div>
+            </li>
+            <li>
+              <div class="deg">B.S. in Applied Artificial Intelligence</div>
+              <div class="where">Interdisciplinary Double Major in Big Data Management Engineering<br>빅데이터경영공학 연계융합복수전공</div>
+              <div class="when">Mar 2022 – Feb 2026</div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3><span class="dot"></span>Tools &amp; methods</h3>
+          <div class="chips">
+            <span class="chip">Python</span><span class="chip">PyTorch</span><span class="chip">CNN</span>
+            <span class="chip">GRU / LSTM</span><span class="chip">Transformers</span><span class="chip">Mixture-of-Experts</span>
+            <span class="chip">Test-Time Adaptation</span><span class="chip">VGGish</span><span class="chip">BEATs</span>
+            <span class="chip">CNN14</span><span class="chip">Log-Mel</span><span class="chip">Linux</span>
+            <span class="chip">Docker</span><span class="chip">CUDA · Multi-GPU</span><span class="chip">LaTeX</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESEARCH ============ -->
+<section id="research">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Research</p>
+      <h2>Selected work</h2>
+      <p>Three threads, all asking the same question from different angles — how knowledge survives a shifting stream of modalities and domains.</p>
+    </div>
+
+    <!-- R1 -->
+    <div class="rcard reveal">
+      <div class="meta">
+        <span class="tag live">● Ongoing</span>
+        <span class="tag">Manuscript in preparation</span>
+      </div>
+      <h3>Multimodal Continual Learning under Changing Modality Availability</h3>
+      <div class="sub">Continual learning for audio-visual systems</div>
+      <p>This project studies continual learning for audio-visual systems when available modalities change sequentially over time. I investigate how models preserve unimodal knowledge and multimodal fusion capabilities while learning from audio-only, visual-only, and audio-visual tasks — without relying on task identifiers at inference time.</p>
+
+      <div class="label">Modality stream orderings</div>
+      <div class="kv">
+        <span class="order"><b>Audio</b> → <b>Visual</b> → <b>Audio-Visual</b></span>
+        <span class="order"><b>Visual</b> → <b>Audio</b> → <b>Audio-Visual</b></span>
+        <span class="order"><b>Audio-Visual</b> → <b>Audio</b> → <b>Visual</b></span>
+      </div>
+
+      <div class="label">Research questions</div>
+      <ul class="qlist">
+        <li>How much does learning a new modality damage knowledge of earlier ones?</li>
+        <li>Are encoder forgetting and multimodal-fusion forgetting distinct phenomena?</li>
+        <li>Can unimodal knowledge survive while fusion ability collapses?</li>
+        <li>Can knowledge be preserved without storing past data?</li>
+        <li>Can the right path be selected without task IDs or modality labels at inference?</li>
       </ul>
-    </section>
+    </div>
 
-    <section>
-      <h2>Projects</h2>
-
-      <div class="project">
-        <h3>Multimodal Continual Learning</h3>
-        <p>
-          Continual learning under dynamically changing audio and visual
-          modality conditions.
-        </p>
+    <!-- R2 -->
+    <div class="rcard reveal">
+      <div class="meta">
+        <span class="tag">KCC 2026</span>
+        <span class="tag">Published · Jun 2026</span>
       </div>
+      <h3>Domain-Agnostic Audio Continual Learning</h3>
+      <div class="sub">Accumulated Branch Ensemble for Domain-Agnostic Audio Continual Learning</div>
+      <p>This work investigates domain-agnostic audio continual learning, where new acoustic domains arrive sequentially and domain labels are unavailable at inference time. We developed an accumulated branch ensemble that preserves previously learned branches while selecting or combining domain-specific predictions without explicit domain information.</p>
 
-      <div class="project">
-        <h3>Domain-Agnostic Audio Continual Learning</h3>
-        <p>
-          Branch-based ensemble learning for domain-incremental acoustic
-          scene classification.
-        </p>
+      <div class="label">Key elements</div>
+      <div class="chips">
+        <span class="chip">Sequential acoustic domains</span>
+        <span class="chip">No past-domain replay</span>
+        <span class="chip">Accumulated per-domain branches</span>
+        <span class="chip">No domain ID at inference</span>
+        <span class="chip">Entropy / confidence / margin / energy routing</span>
+        <span class="chip">Hard routing vs. soft ensemble</span>
+        <span class="chip">Accuracy &amp; forgetting analysis</span>
       </div>
-    </section>
+    </div>
 
-    <section>
+    <!-- R3 -->
+    <div class="rcard reveal">
+      <div class="meta">
+        <span class="tag">DCASE 2026 Challenge</span>
+      </div>
+      <h3>Robust Audio Classification under Domain Shift</h3>
+      <div class="sub">Domain-specific experts · entropy-based soft routing · test-time adaptation</div>
+      <p>Developed a domain-robust audio classification system using domain-specific experts, an entropy-based soft mixture-of-experts, and test-time adaptation for evaluation data with unknown domain labels.</p>
+
+      <div class="label">What was built</div>
+      <div class="chips">
+        <span class="chip">Domain-specific experts</span>
+        <span class="chip">Device augmentation</span>
+        <span class="chip">Gain-shift augmentation</span>
+        <span class="chip">Entropy soft MoE</span>
+        <span class="chip">Temperature scaling</span>
+        <span class="chip">Test-time adaptation</span>
+        <span class="chip">Domain-label-free inference</span>
+        <span class="chip">Per-domain &amp; per-class analysis</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLICATIONS ============ -->
+<section id="publications">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Publications</p>
       <h2>Publications</h2>
+    </div>
+    <div class="pub reveal">
+      <div class="yr">2026<small>KCC</small></div>
+      <div>
+        <div class="ko-title">도메인 비인지 오디오 지속학습을 위한 누적형 분기 앙상블 기법</div>
+        <div class="en-title">Accumulated Branch Ensemble for Domain-Agnostic Audio Continual Learning</div>
+        <div class="venue">KCC 2026 · Presented June 26, 2026</div>
+        <div class="acts">
+          <a class="btn soon">Publication Info</a>
+          <a class="btn soon">Code (coming soon)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <p>
-        Publications and preprints will be listed here.
-      </p>
-    </section>
-  </main>
+<!-- ============ PROJECTS ============ -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Projects</p>
+      <h2>Selected projects</h2>
+      <p>Earlier undergraduate and side projects spanning vision, healthcare RL, and audio.</p>
+    </div>
+    <div class="pgrid">
+      <div class="pcard reveal">
+        <div class="ptype">Computer Vision</div>
+        <h3>Real-Time Crime Detection under Adverse Visual Conditions</h3>
+        <p>A real-time crime-behavior detection system combining visual enhancement under adverse weather and low-light conditions with video-based behavior recognition.</p>
+        <div class="chips">
+          <span class="chip">Image Enhancement</span><span class="chip">Low-Light Vision</span>
+          <span class="chip">Video Anomaly Detection</span><span class="chip">Real-Time Inference</span>
+        </div>
+      </div>
+      <div class="pcard reveal">
+        <div class="ptype">Healthcare · Reinforcement Learning</div>
+        <h3>HIV Treatment Strategies with Meta-Reinforcement Learning</h3>
+        <p>Meta-reinforcement learning for personalized HIV treatment strategies that adapt to heterogeneous patient dynamics.</p>
+        <div class="chips">
+          <span class="chip">Meta-RL</span><span class="chip">Healthcare AI</span>
+          <span class="chip">Patient Heterogeneity</span><span class="chip">Sequential Decisions</span>
+        </div>
+      </div>
+      <div class="pcard reveal">
+        <div class="ptype">Data Analysis</div>
+        <h3>Data Center Energy Analysis</h3>
+        <p>Large-scale data-center power analysis: hourly time-series patterns across regions, contract power, and time-of-day, validated against real-world industrial data.</p>
+        <div class="chips">
+          <span class="chip">Time-Series</span><span class="chip">Forecasting</span><span class="chip">Industrial Data</span>
+        </div>
+      </div>
+      <div class="pcard reveal">
+        <div class="ptype">Audio</div>
+        <h3>NSynth Instrument Classification</h3>
+        <p>Ten-class musical-instrument classification comparing SVM, CNN, and pretrained audio representations over log-Mel and BEATs features, with multi-seed evaluation.</p>
+        <div class="chips">
+          <span class="chip">Log-Mel</span><span class="chip">BEATs</span><span class="chip">Multi-Seed Eval</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <footer>
-    © 2026 Semin Heo
-  </footer>
+<!-- ============ TEACHING ============ -->
+<section id="teaching">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Teaching</p>
+      <h2>Teaching &amp; mentoring</h2>
+    </div>
+    <div class="tgrid reveal">
+      <div class="trow">
+        <div class="term">Spring 2026</div>
+        <div><div class="role">Teaching Assistant — Machine Learning</div><div class="org">SeoulTech · assignments, project-based learning, assessments, materials</div></div>
+      </div>
+      <div class="trow">
+        <div class="term">Fall 2025</div>
+        <div><div class="role">Teaching Assistant — Linear Algebra</div><div class="org">SeoulTech · exercises and undergraduate instruction support</div></div>
+      </div>
+      <div class="trow">
+        <div class="term">—</div>
+        <div><div class="role">Calculus Tutor</div><div class="org">Undergraduate mathematics tutoring</div></div>
+      </div>
+      <div class="trow">
+        <div class="term">—</div>
+        <div><div class="role">Mathematics Instructor</div><div class="org">Private mathematics academy</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="reveal">
+        <p class="eyebrow">Contact</p>
+        <h2>Let's talk research</h2>
+        <p style="max-width:46ch;">Reach out about continual learning, audio-visual systems, or potential collaboration.</p>
+      </div>
+      <div class="clist reveal">
+        <div><span>Email</span><a href="mailto:smheo@seoultech.ac.kr">smheo@seoultech.ac.kr</a></div>
+        <div><span>GitHub</span><a href="https://github.com/BluffMin" target="_blank" rel="noopener">github.com/BluffMin</a></div>
+        <div><span>Lab</span><a href="https://www.brainailab.com/" target="_blank" rel="noopener">MuLI Lab</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;width:100%;">
+    <span>© 2026 Semin Heo · 허세민</span>
+    <span>MuLI Lab · SeoulTech</span>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  const btn = document.getElementById('menuBtn');
+  const links = document.getElementById('navLinks');
+  btn.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+  }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // active nav on scroll
+  const sections = [...document.querySelectorAll('section[id]')];
+  const navMap = {};
+  document.querySelectorAll('nav.links a').forEach(a => navMap[a.getAttribute('href').slice(1)] = a);
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting){
+        Object.values(navMap).forEach(a => a.classList.remove('active'));
+        if (navMap[e.target.id]) navMap[e.target.id].classList.add('active');
+      }
+    });
+  }, { rootMargin:'-45% 0px -50% 0px' });
+  sections.forEach(s => spy.observe(s));
+</script>
 </body>
 </html>
