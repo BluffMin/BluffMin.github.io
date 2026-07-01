@@ -274,7 +274,7 @@
       <img class="avatar" src="semin-heo.webp" alt="Portrait of Semin Heo" width="148" height="148" />
     </div>
 
-    <p class="statement">I study continual learning and adaptation for audio-visual and multimodal systems — preserving previously acquired knowledge as available modalities and data environments change over time.</p>
+    <p class="statement">Continual learning · multimodal adaptation · audio-visual intelligence · knowledge preservation under modality and domain shifts</p>
 
     <div class="links-row">
       <a href="#contact">Email</a>
@@ -345,17 +345,19 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <p class="eyebrow">About</p>
-      <h2>Preserving knowledge across a changing modality stream</h2>
+      <h2>Knowledge preservation under modality shifts</h2>
     </div>
 
     <div class="about-grid">
       <div class="bio reveal">
-        <p>I am an M.S. student in Applied Artificial Intelligence at Seoul National University of Science and Technology (SeoulTech) and a member of the Multimodal Learning and Intelligence (MuLI) Lab, advised by Prof. Seongeun Kim.</p>
-        <p>My research focuses on continual learning and adaptation for audio-visual and multimodal systems. In particular, I study how models can preserve previously acquired unimodal knowledge and multimodal reasoning capabilities when available modalities and data domains change over time.</p>
-        <p>My previous work includes domain-agnostic audio continual learning, real-time crime detection through visual enhancement under adverse weather and low-light conditions, and meta-reinforcement learning for HIV treatment strategies that account for patient diversity.</p>
-        <p style="color:var(--ink-3);font-size:.95rem;">Outside research, I enjoy mathematics, puzzles, and reading.</p>
+        <p><b>M.S. Student</b> · Applied Artificial Intelligence · SeoulTech</p>
+        <p><b>MuLI Lab</b> · Advisor: Prof. Seongeun Kim</p>
+        <p><b>Research</b> · Continual Learning · Multimodal Learning · Audio-Visual Intelligence</p>
+        <p><b>Focus</b> · Unimodal Knowledge Retention · Fusion Robustness · Modality/Domain Shifts</p>
+        <p><b>Previous Work</b> · Domain-Agnostic Audio CL · Adverse-Condition Vision · Meta-RL for HIV Treatment</p>
+        <p style="color:var(--ink-3);font-size:.95rem;"><b>Interests</b> · Mathematics · Puzzles · Reading</p>
 
-        <p class="ko">저는 서울과학기술대학교 인공지능응용학과 석사과정에 재학 중이며, Multimodal Learning and Intelligence 연구실에서 연구하고 있습니다. 시간에 따라 데이터 환경이나 사용 가능한 모달리티가 달라질 때, 인공지능 모델이 기존 지식을 잊지 않고 새로운 정보를 계속 학습하는 방법에 관심이 있습니다. 현재는 오디오와 비디오를 순차적으로 학습하는 멀티모달 시스템에서 단일 모달리티의 지식과 멀티모달 융합 능력을 함께 보존하는 방법을 연구하고 있습니다.</p>
+        <p class="ko">서울과학기술대학교 인공지능응용학과 석사과정 · MuLI Lab<br>지속학습 · 멀티모달 학습 · 오디오-비주얼 지능<br>모달리티·도메인 변화 · 단일 모달리티 지식 보존 · 융합 능력 유지</p>
 
         <div class="panel" style="margin-top:30px;">
           <h3><span class="dot"></span>Research trajectory</h3>
@@ -441,7 +443,7 @@
     <div class="sec-head reveal">
       <p class="eyebrow">Research</p>
       <h2>Selected work</h2>
-      <p>Three threads, all asking the same question from different angles — how knowledge survives a shifting stream of modalities and domains.</p>
+      <p>Continual learning across modality and domain shifts</p>
     </div>
 
     <!-- R1 -->
@@ -452,7 +454,7 @@
       </div>
       <h3>Multimodal Continual Learning under Changing Modality Availability</h3>
       <div class="sub">Continual learning for audio-visual systems</div>
-      <p>This project studies continual learning for audio-visual systems when available modalities change sequentially over time. I investigate how models preserve unimodal knowledge and multimodal fusion capabilities while learning from audio-only, visual-only, and audio-visual tasks — without relying on task identifiers at inference time.</p>
+      <p><b>Setting</b> · Audio-only → Visual-only → Audio-Visual<br><b>Goals</b> · Unimodal retention · Fusion preservation · Task-ID-free inference · Replay-free learning</p>
 
       <div class="label">Modality stream orderings</div>
       <div class="kv">
@@ -463,11 +465,11 @@
 
       <div class="label">Research questions</div>
       <ul class="qlist">
-        <li>How much does learning a new modality damage knowledge of earlier ones?</li>
-        <li>Are encoder forgetting and multimodal-fusion forgetting distinct phenomena?</li>
-        <li>Can unimodal knowledge survive while fusion ability collapses?</li>
-        <li>Can knowledge be preserved without storing past data?</li>
-        <li>Can the right path be selected without task IDs or modality labels at inference?</li>
+        <li>New-modality learning → prior-modality damage?</li>
+        <li>Encoder forgetting vs. fusion forgetting?</li>
+        <li>Unimodal retention despite fusion collapse?</li>
+        <li>Replay-free knowledge preservation?</li>
+        <li>Path selection without task/modality IDs?</li>
       </ul>
     </div>
 
@@ -479,7 +481,7 @@
       </div>
       <h3>Domain-Agnostic Audio Continual Learning</h3>
       <div class="sub">Accumulated Branch Ensemble for Domain-Agnostic Audio Continual Learning</div>
-      <p>This work investigates domain-agnostic audio continual learning, where new acoustic domains arrive sequentially and domain labels are unavailable at inference time. We developed an accumulated branch ensemble that preserves previously learned branches while selecting or combining domain-specific predictions without explicit domain information.</p>
+      <p><b>Setting</b> · Sequential acoustic domains · Unknown domain labels at inference<br><b>Method</b> · Accumulated branches · Domain-specific routing · Soft ensemble</p>
 
       <div class="label">Key elements</div>
       <div class="chips">
@@ -500,7 +502,7 @@
       </div>
       <h3>Robust Audio Classification under Domain Shift</h3>
       <div class="sub">Domain-specific experts · entropy-based soft routing · test-time adaptation</div>
-      <p>Developed a domain-robust audio classification system using domain-specific experts, an entropy-based soft mixture-of-experts, and test-time adaptation for evaluation data with unknown domain labels.</p>
+      <p>Domain-specific experts · Entropy-based soft MoE · Test-time adaptation · Unknown-domain evaluation</p>
 
       <div class="label">What was built</div>
       <div class="chips">
@@ -545,13 +547,13 @@
     <div class="sec-head reveal">
       <p class="eyebrow">Projects</p>
       <h2>Selected projects</h2>
-      <p>Earlier undergraduate and side projects spanning vision, healthcare RL, and audio.</p>
+      <p>Vision · Healthcare RL · Energy Analytics · Audio</p>
     </div>
     <div class="pgrid">
       <div class="pcard reveal">
         <div class="ptype">Computer Vision</div>
         <h3>Real-Time Crime Detection under Adverse Visual Conditions</h3>
-        <p>A real-time crime-behavior detection system combining visual enhancement under adverse weather and low-light conditions with video-based behavior recognition.</p>
+        <p>Visual enhancement · Adverse weather/low light · Video behavior recognition · Real-time crime detection</p>
         <div class="chips">
           <span class="chip">Image Enhancement</span><span class="chip">Low-Light Vision</span>
           <span class="chip">Video Anomaly Detection</span><span class="chip">Real-Time Inference</span>
@@ -560,7 +562,7 @@
       <div class="pcard reveal">
         <div class="ptype">Healthcare · Reinforcement Learning</div>
         <h3>HIV Treatment Strategies with Meta-Reinforcement Learning</h3>
-        <p>Meta-reinforcement learning for personalized HIV treatment strategies that adapt to heterogeneous patient dynamics.</p>
+        <p>Personalized HIV treatment · Heterogeneous patient dynamics · Meta-RL · Sequential decision-making</p>
         <div class="chips">
           <span class="chip">Meta-RL</span><span class="chip">Healthcare AI</span>
           <span class="chip">Patient Heterogeneity</span><span class="chip">Sequential Decisions</span>
@@ -569,7 +571,7 @@
       <div class="pcard reveal">
         <div class="ptype">Data Analysis</div>
         <h3>Data Center Energy Analysis</h3>
-        <p>Large-scale data-center power analysis: hourly time-series patterns across regions, contract power, and time-of-day, validated against real-world industrial data.</p>
+        <p>Data-center power analysis · Hourly/region/contract patterns · Industrial-data validation</p>
         <div class="chips">
           <span class="chip">Time-Series</span><span class="chip">Forecasting</span><span class="chip">Industrial Data</span>
         </div>
@@ -577,7 +579,7 @@
       <div class="pcard reveal">
         <div class="ptype">Audio</div>
         <h3>NSynth Instrument Classification</h3>
-        <p>Ten-class musical-instrument classification comparing SVM, CNN, and pretrained audio representations over log-Mel and BEATs features, with multi-seed evaluation.</p>
+        <p>10-class instrument classification · SVM/CNN/BEATs · Log-Mel features · Multi-seed evaluation</p>
         <div class="chips">
           <span class="chip">Log-Mel</span><span class="chip">BEATs</span><span class="chip">Multi-Seed Eval</span>
         </div>
@@ -596,19 +598,19 @@
     <div class="tgrid reveal">
       <div class="trow">
         <div class="term">Spring 2026</div>
-        <div><div class="role">Teaching Assistant — Machine Learning</div><div class="org">SeoulTech · assignments, project-based learning, assessments, materials</div></div>
+        <div><div class="role">Teaching Assistant — Machine Learning</div><div class="org">SeoulTech · Assignments · Projects · Assessments · Materials</div></div>
       </div>
       <div class="trow">
         <div class="term">Fall 2025</div>
-        <div><div class="role">Teaching Assistant — Linear Algebra</div><div class="org">SeoulTech · exercises and undergraduate instruction support</div></div>
+        <div><div class="role">Teaching Assistant — Linear Algebra</div><div class="org">SeoulTech · Exercises · Undergraduate support</div></div>
       </div>
       <div class="trow">
         <div class="term">—</div>
-        <div><div class="role">Calculus Tutor</div><div class="org">Undergraduate mathematics tutoring</div></div>
+        <div><div class="role">Calculus Tutor</div><div class="org">Undergraduate Mathematics</div></div>
       </div>
       <div class="trow">
         <div class="term">—</div>
-        <div><div class="role">Mathematics Instructor</div><div class="org">Private mathematics academy</div></div>
+        <div><div class="role">Mathematics Instructor</div><div class="org">Private Mathematics Academy</div></div>
       </div>
     </div>
   </div>
@@ -620,8 +622,8 @@
     <div class="contact-grid">
       <div class="reveal">
         <p class="eyebrow">Contact</p>
-        <h2>Let's talk research</h2>
-        <p style="max-width:46ch;">Reach out about continual learning, audio-visual systems, or potential collaboration.</p>
+        <h2>Research &amp; collaboration</h2>
+        <p style="max-width:46ch;">Continual Learning · Audio-Visual Systems · Collaboration</p>
       </div>
       <div class="clist reveal">
         <div><span>Email</span><a href="mailto:smheo@seoultech.ac.kr">smheo@seoultech.ac.kr</a></div>
