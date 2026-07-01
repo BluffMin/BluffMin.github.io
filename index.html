@@ -96,6 +96,8 @@
   }
   .avatar::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 60%,rgba(191,116,22,.35));}
   .avatar span{position:relative;z-index:1;letter-spacing:.02em;}
+  img.avatar{object-fit:cover;background:none;}
+  img.avatar::after{display:none;}
 
   .links-row{margin:30px 0 0;display:flex;flex-wrap:wrap;gap:8px 0;align-items:center;font-family:"IBM Plex Mono",monospace;font-size:.85rem;}
   .links-row a{padding:0 16px;color:var(--ink);border-left:1px solid var(--line);}
@@ -268,8 +270,8 @@
         <p class="affil">M.S. in Applied Artificial Intelligence,<br><b>Seoul National University of Science and Technology</b><br>
           Multimodal Learning and Intelligence (MuLI) Lab · advised by Prof. Seongeun Kim</p>
       </div>
-      <!-- Replace with: <img class="avatar" src="semin-heo.webp" alt="Portrait of Semin Heo"> -->
-      <div class="avatar" role="img" aria-label="Portrait of Semin Heo"><span>SH</span></div>
+      <!-- Portrait -->
+      <img class="avatar" src="semin-heo.webp" alt="Portrait of Semin Heo" width="148" height="148" />
     </div>
 
     <p class="statement">I study continual learning and adaptation for audio-visual and multimodal systems — preserving previously acquired knowledge as available modalities and data environments change over time.</p>
